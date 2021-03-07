@@ -1,11 +1,17 @@
 {
-	"name": "bom",
+	"name": "@arkham-engineering/bom",
 	"version": "0.1.0",
 	"description": "Bill of Materials (BOM) library.",
 	"main": "index.js",
+	"engines": {
+		"node": ">=0.12.0"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/arkham-engineering/bom.git"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"scripts": {
 		"docs": "jsdoc2md index.js > doc/api.md",
