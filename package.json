@@ -1,36 +1,44 @@
 {
-	"name": "@arkham-engineering/bom",
-	"version": "0.1.0",
-	"description": "Bill of Materials (BOM) library.",
-	"main": "index.js",
-	"engines": {
-		"node": ">=0.12.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/arkham-engineering/bom.git"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"scripts": {
-		"docs": "jsdoc2md index.js > doc/api.md",
-		"example-manual": "node test/example-manual.js",
-		"example-buildFromTemplate": "node test/example-buildFromTemplate.js"
-	},
-	"keywords": [
-		"bom",
-		"bill of materials",
-		"parts list"
-	],
-	"author": "Wesley A. Zloza",
-	"license": "MIT",
-	"dependencies": {
-		"angular-expressions": "^1.1.2",
-		"date-and-time": "^0.14.2",
-		"exceljs": "^4.1.0"
-	},
-	"devDependencies": {
-		"jsdoc-to-markdown": "^6.0.1"
-	}
+  "name": "@arkham-engineering/bom",
+  "version": "0.1.0",
+  "description": "Bill of Materials (BOM) library.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkham-engineering/bom.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "docs": "jsdoc2md index.js > doc/api.md",
+    "example-manual": "node test/example-manual.js",
+    "example-buildFromTemplate": "node test/example-buildFromTemplate.js"
+  },
+  "keywords": [
+    "bom",
+    "bill of materials",
+    "parts list"
+  ],
+  "author": "Wesley A. Zloza",
+  "license": "MIT",
+  "dependencies": {
+    "angular-expressions": "^1.1.2",
+    "date-and-time": "^0.14.2",
+    "exceljs": "^4.1.0"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^6.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/arkham-engineering/bom/issues"
+  },
+  "homepage": "https://github.com/arkham-engineering/bom#readme",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  }
 }
