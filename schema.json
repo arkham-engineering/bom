@@ -1,0 +1,24 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"title": "BOM Template",
+	"description": "Bill of materials JSON template.",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"pn": {
+				"description": "Part Number",
+				"type": "string"
+			},
+			"qty": {
+				"description": "Quantity",
+				"type": ["number", "string"]
+			},
+			"include": {
+				"description": "Inclusion Flag",
+				"type": ["boolean", "string"]
+			}
+		},
+		"required": ["pn", "qty"]
+	}
+}
