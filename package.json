@@ -1,10 +1,10 @@
 {
   "name": "@arkham-engineering/bom",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bill of Materials (BOM) library.",
   "main": "index.js",
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=14.20.0"
   },
   "repository": {
     "type": "git",
@@ -14,24 +14,22 @@
     "access": "public"
   },
   "scripts": {
-    "docs": "jsdoc2md index.js > doc/api.md",
-    "example-manual": "node test/example-manual.js",
-    "example-buildFromTemplate": "node test/example-buildFromTemplate.js"
+    "build": "tsc",
+    "test": "vitest",
+    "test-ui": "vitest --ui"
   },
   "keywords": [
     "bom",
     "bill of materials",
-    "parts list"
+    "parts list",
+    "engineering",
+    "manufacturing"
   ],
   "author": "Wesley A. Zloza",
   "license": "MIT",
   "dependencies": {
     "angular-expressions": "^1.1.2",
-    "date-and-time": "^0.14.2",
     "exceljs": "^4.1.0"
-  },
-  "devDependencies": {
-    "jsdoc-to-markdown": "^6.0.1"
   },
   "bugs": {
     "url": "https://github.com/arkham-engineering/bom/issues"
@@ -40,5 +38,13 @@
   "directories": {
     "doc": "doc",
     "test": "test"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@types/node": "^18.15.11",
+    "@vitest/coverage-c8": "^0.30.1",
+    "@vitest/ui": "^0.30.1",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
   }
 }

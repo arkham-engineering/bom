@@ -1,29 +1,29 @@
 [
 	{
 		"_comment": "Example way of having a comment.",
-		"pn": "176498144-8",
-		"qty": 10,
+		"partNumber": "176498144-8",
+		"quantity": 10,
 		"include": false
 	},
 	{
-		"pn": "568158670-7",
-		"qty": 10,
+		"partNumber": "568158670-7",
+		"quantity": 10,
 		"include": "today === 'Tuesday' || today === 'Thursday'"
 	},
 	{
-		"pn": "658418999-6",
+		"partNumber": "658418999-6",
 		"title": "Miboo Spikes Peak Colombian Coffee - Decaf",
-		"qty": "today === 'Sunday' ? 15 : 20",
+		"quantity": "today === 'Sunday' ? 15 : 20",
 		"include": "today === 'Sunday' || today === 'Wednesday'"
 	},
 	{
-		"pn": "528304855-1",
-		"qty": 5,
+		"partNumber": "528304855-1",
+		"quantity": 5,
 		"include": "specialItemsNeeded === true"
 	},
 	{
-		"pn": "004939189-5",
-		"qty": 3,
+		"partNumber": "004939189-5",
+		"quantity": 3,
 		"include": "specialItemsNeeded === false"
 	}
 ]

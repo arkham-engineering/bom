@@ -19,6 +19,6 @@
 				"type": ["boolean", "string"]
 			}
 		},
-		"required": ["pn", "qty"]
+		"required": ["partNumber", "quantity"]
 	}
 }
