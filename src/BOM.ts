@@ -147,7 +147,7 @@ export default class BOM {
 	private refresh(): Promise<void> {
 		let promises: Promise<BOMItemDetails>[] = [];
 		this._items.forEach((quantity, partNumber) => promises.push(this._getItemInfo(partNumber).then(details => ({...details, partNumber, quantity}))));
-		
+
 		return Promise
 			.all(promises)
 			.then(itemDetailsArray => {
@@ -263,7 +263,7 @@ export default class BOM {
 				const rightAlignment: Alignment = {
 					horizontal: "right",
 					indent: 0,
-					readingOrder: "rtl",
+					readingOrder: "ltr",
 					shrinkToFit: false,
 					textRotation: 0,
 					vertical: "middle", 
@@ -282,8 +282,10 @@ export default class BOM {
 					rows.push([
 						i + 1, 
 						data[i].quantity, 
-						data[i].partNumber, "", 
-						data[i].title, "",
+						data[i].partNumber,
+						data[i].title, 
+						data[i].description, 
+						"",
 						data[i].manufacturer ?? "", 
 						data[i]?.manufacturerPartNumber ?? "", 
 						data[i].unit, 
@@ -309,7 +311,7 @@ export default class BOM {
 						{ name: "Item", filterButton: true, totalsRowLabel: "" },
 						{ name: "Qty", filterButton: true },
 						{ name: "Part Number", filterButton: true },
-						{ name: "Legacy Number", filterButton: true },
+						{ name: "Title", filterButton: true },
 						{ name: "Description", filterButton: true },
 						{ name: "Mat./Finish", filterButton: true },
 						{ name: "Mfg.", filterButton: true },
