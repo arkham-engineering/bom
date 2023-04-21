@@ -16,38 +16,39 @@ The information associated with each part is often stored in a database such as 
 
 ## Installation
 
-The module is not published to package managers such as npm. The module must be added to a project manually by cloning it from GitHub or by manually adding it as a dependency in a project's package.json. The following illustrates how it can be manually added as a dependency:
+npm ([Link](https://www.npmjs.com/package/@arkham-engineering/bom)):
 
-```json
-// package.json
-{
-	"dependencies": {
-		"bom": "git+https://github.com/arkham-engineering/bom.git"
-	}
-}
+```powershell
+npm install @arkham-engineering/bom
 ```
+
+Yarn ([Link](https://yarnpkg.com/package/@arkham-engineering/bom)):
+
+```powershell
+yarn add @arkham-engineering/bom
+```
+
+## Importing
 
 The module then can be referenced using the following syntax:
 
 ```javascript
-// CommonJS
-const BOM = require("bom")
+// CommonJS Module
+const BOM = require('@arkham-engineering/bom');
 
-// ES6 Module Import
-import * as BOM from "bom"
+// ECMAScript Module
+import BOM from '@arkham-engineering/bom';
 ```
 
 ## Usage
 
-A new bill of materials is created by initializing a new instance of the BOM class. In the example below we will create a new "parts list" as illustrated by the variable `list`.
-
-> Note that parts list is another term used for a bill of materials and that the two terms are often used interchangeably.
+A new bill of materials is created by initializing a new instance of the BOM class. In the example below we will create a new bill of materials denoted by the variable `bom`.
 
 ```javascript
-let list = new BOM(queryFx, options)
+let bom = new BOM(queryFx, options)
 ```
 
-As one can see, the constructor has two arguments. The first argument is a "query function" while the second argument is an optional `options` object. Refer to the [API](doc/api.md) for information.
+The `BOM` constructor has two arguments, a "query function" while the second argument is an optional `options` object. Refer to the [API](doc/api.md) for information.
 
 ### Query Function
 
@@ -59,7 +60,7 @@ let data = require("./data.json")
 
 // Query function.
 function queryFx(pn) {
-	return Promise.resolve(data.pn)
+  return Promise.resolve(data.pn)
 }
 ```
 
@@ -71,18 +72,16 @@ It is recommended that the object return from the query function return the foll
 
 | Name        | Type                | Description                           |
 | ----------- | ------------------- | ------------------------------------- |
-| pn          | <code>String</code> | Part Number (Unique ID)               |
+| partNumber  | <code>String</code> | Part Number (Unique ID)               |
 | title       | <code>String</code> | Part title.                           |
-| desc        | <code>String</code> | Part description.                     |
+| description | <code>String</code> | Part description.                     |
 | unit        | <code>String</code> | Unit (ex: each, in, feet, lbs, etc.). |
-| unit_cost   | <code>Number</code> | Unit cost.                            |
-| unit_weight | <code>Number</code> | Unit weight.                          |
-
-Refer to the [API](doc/api.md) for information.
+| unitCost    | <code>Number</code> | Unit cost.                            |
+| unitWeight  | <code>Number</code> | Unit weight.                          |
 
 ### Methods & Properties
 
-Each BOM instance contains methods to add, remove, and modify items in the bill of materials. In general, most of these methods will require a part number (denoted as `pn`) and a quantity (denoted as `qty`). The following sub-sections detail the usage of each method or property within the BOM class.
+Each BOM instance contains methods to add, remove, and modify items in the bill of materials. In general, most of these methods will require a part number and a quantity. The following sub-sections detail the usage of each method or property within the BOM class.
 
 #### Add Item `.add()`
 
@@ -90,10 +89,10 @@ Adds an item to the parts list provided a part number `{String}` and a quantity 
 
 ```javascript
 // Adds one instance of the part to the list.
-list.add(pn)
+bom.add(partNumber);
 
 // Adds specified number of parts to the list.
-list.add(pn, qty)
+bom.add(partNumber, quantity);
 ```
 
 #### Remove Item `.remove()`
@@ -102,27 +101,27 @@ Removes an item or specific quantity of the item from the parts list depending o
 
 ```javascript
 // Remove an item completely from the list.
-list.remove(pn)
+bom.remove(partNumber);
 
-// Remove a certain quantity.
-list.remove(pn, qty)
+// Remove a specified quantity.
+bom.remove(partNumber, quantity);
 ```
 
 #### Modify Item `.set()`
 
-Modifies (or in this case sets) the quantity of the part in the parts list. If the quantity is set to zero or a negative number then the part will be removed.
+Modifies (or in this case sets) the quantity of the part in the parts list. If the quantity is less than or equal to zero then part will be completely removed.
 
 ```javascript
 // Set the quantity of an item to a specific value.
-list.set(pn, qty)
+bom.set(partNumber, quantity);
 ```
 
 #### Length `.length`
 
-Returns the number (distinct count) of items in the bill of materials.
+Returns the number (i.e., distinct count) of items in the bill of materials.
 
 ```javascript
-list.length // Returns {Number}
+bom.length // Returns {Number}
 ```
 
 #### Items `.items`
@@ -131,7 +130,7 @@ The current list of items in the bill of materials can be accessed using the ite
 
 ```javascript
 // Returns the collection of items with basic information.
-console.log(list.items);
+console.log(bom.items);
 
 // Example Result:
 [
@@ -147,14 +146,10 @@ Returns a promise resolving to a detailed bill of materials. This object array w
 
 ```javascript
 // Returns the collection of items with detailed information.
-list
-	.getDetails()
-	.then((details) => {
-		console.log(details)
-	})
-	.catch((error) => {
-		// Handle error spawned from query function.
-	})
+bom
+  .getDetails()
+  .then(details => /* Process BOM information. */)
+  .catch(error => /* Handle error spawned from query function. */)
 
 // Example Result:
 /*
@@ -189,11 +184,15 @@ list
 
 #### Cost Roll `.costRoll()`
 
-Returns a promise resolving to the total material cost of the bill of materials. This function depends requires that a `unit_cost` property is available in each BOM item. This function will throw a type error if one or more items do not have a `unit_cost` defined.
+Returns a promise resolving to the total material cost of the bill of materials. This function depends requires that a `unitCost` property is available in each BOM item. This function will throw a type error if one or more items do not have a `unitCost` defined.
 
 ```javascript
-list.costRoll() // Returns {Promise<Number>}
+bom.costRoll() // Returns {Promise<Number>}
 ```
+
+#### Total Weight `.totalWeight()`
+
+
 
 #### Export `.export()`
 
