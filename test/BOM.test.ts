@@ -173,7 +173,7 @@ describe("Bill of Materials (BOM)", () => {
 
     // Export to Microsoft Excel document.
     await Promise.allSettled(promises);
-    const exportResult = await bom.export(path.resolve(__dirname, "..", "tests", "results", "example-manual.xlsx"));
+    const exportResult = await bom.export(path.resolve(__dirname, "..", "test", "results", "example-manual.xlsx"));
     expect(exportResult).toBeUndefined();
     }, 30000);
 
