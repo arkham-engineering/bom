@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "coverage": "vitest run --coverage",
     "doc": "typedoc",
     "test": "vitest",
     "test-ui": "vitest --ui"
