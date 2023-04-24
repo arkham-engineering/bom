@@ -1,10 +1,12 @@
-# BOM.js
+# BOM
 
-An Node.js module that allows a user to programmatically create a [bill of materials (BOM)](https://en.wikipedia.org/wiki/Bill_of_materials) using only part numbers and the desired quantity. The final bill of materials is built against an outside dataset (database) to generate a detailed list of information.
+![npm (scoped)](https://img.shields.io/npm/v/@arkham-engineering/bom?style=for-the-badge)&ThinSpace;![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@arkham-engineering/bom?style=for-the-badge)&ThinSpace;![GitHub issues](https://img.shields.io/github/issues/arkham-engineering/bom?style=for-the-badge)&ThinSpace;![GitHub commit activity](https://img.shields.io/github/commit-activity/m/arkham-engineering/bom?style=for-the-badge)&ThinSpace;![GitHub last commit](https://img.shields.io/github/last-commit/arkham-engineering/bom?style=for-the-badge)&ThinSpace;![GitHub branch checks state](https://img.shields.io/github/checks-status/arkham-engineering/bom/master?style=for-the-badge)
+
+BOM is a Node.js module that allows users to programmatically create a [bill of materials (BOM)](https://en.wikipedia.org/wiki/Bill_of_materials) using only part numbers and desired quantities. Part information is gathered from an outside dataset and the final bill of materials (with details) can be exported to Microsoft Excel.
 
 ## Overview
 
-The BOM.js module provides a simple mechanism to represent and export a single-level bill of materials (BOM). In the engineering and manufacturing communities, a bill of materials will primarily contain a list of parts that are to be manufactured or purchased to produce a product. It can also be seen as a "formula, recipe, or ingredients list" needed for production. A part, in simple terms, represents a physical item that has a "part number" as means of identification/tracking. Parts also have properties associated with them. Some of these properties include:
+The `BOM` class provides a simple mechanism to track, digitally represent, and export a single-level bill of materials (BOM). In the engineering and manufacturing communities, a bill of materials will primarily contain a list of parts that are to be manufactured or purchased to produce a product. It can also be seen as a "formula, recipe, or ingredients list" needed for production. A part, in simple terms, represents a physical item that has a "part number" as means of identification/tracking. Parts also have properties associated with them. Some of these properties include:
 
 - Title / Description
 - Unit of Measure (UOM)
@@ -12,17 +14,17 @@ The BOM.js module provides a simple mechanism to represent and export a single-l
 - Cost (or Unit Cost)
 - etc.
 
-The information associated with each part is often stored in a database such as those found in a [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) system. These databases will serve as the master source of information. BOM.js is designed to create dynamic bill of materials which can be tied to these master data sources.
+The information associated with each part is often stored in a database such as those found in a [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) system. These databases are the main source of information. As result, the `BOM` class mainly keeps track of part quantity while part data is loosely tied these data sources.
 
 ## Installation
 
-npm ([Link](https://www.npmjs.com/package/@arkham-engineering/bom)):
+[npm](https://www.npmjs.com/package/@arkham-engineering/bom):
 
 ```powershell
 npm install @arkham-engineering/bom
 ```
 
-Yarn ([Link](https://yarnpkg.com/package/@arkham-engineering/bom)):
+[Yarn](https://yarnpkg.com/package/@arkham-engineering/bom):
 
 ```powershell
 yarn add @arkham-engineering/bom
@@ -70,14 +72,14 @@ In this example, the detailed information about all of the parts is stored insid
 
 It is recommended that the object return from the query function return the following properties at a minimum:
 
-| Name        | Type                | Description                           |
-| ----------- | ------------------- | ------------------------------------- |
-| partNumber  | <code>String</code> | Part Number (Unique ID)               |
-| title       | <code>String</code> | Part title.                           |
-| description | <code>String</code> | Part description.                     |
-| unit        | <code>String</code> | Unit (ex: each, in, feet, lbs, etc.). |
-| unitCost    | <code>Number</code> | Unit cost.                            |
-| unitWeight  | <code>Number</code> | Unit weight.                          |
+| Name        | Type     | Description                           |
+| ----------- | -------- | ------------------------------------- |
+| partNumber  | `String` | Part Number (Unique ID)               |
+| title       | `String` | Part title.                           |
+| description | `String` | Part description.                     |
+| unit        | `String` | Unit (ex: each, in, feet, lbs, etc.). |
+| unitCost    | `Number` | Unit cost.                            |
+| unitWeight  | `Number` | Unit weight.                          |
 
 ### Methods & Properties
 
@@ -154,30 +156,30 @@ bom
 // Example Result:
 /*
 [
-	{
-		pn: "001",
-		qty: 10,
-		desc: "...",
-		unit: "each",
-		unit_cost: 20,
-		total_cost: 200,
-	},
-	{
-		pn: "002",
-		qty: 1,
-		desc: "...",
-		unit: "each",
-		unit_cost: 40,
-		total_cost: 40,
-	},
-	{
-		pn: "003",
-		qty: 12,
-		desc: "...",
-		unit: "inch",
-		unit_cost: 0.5,
-		total_cost: 6,
-	}
+  {
+    pn: "001",
+    qty: 10,
+    desc: "...",
+    unit: "each",
+    unit_cost: 20,
+    total_cost: 200,
+  },
+  {
+    pn: "002",
+    qty: 1,
+    desc: "...",
+    unit: "each",
+    unit_cost: 40,
+    total_cost: 40,
+  },
+  {
+    pn: "003",
+    qty: 12,
+    desc: "...",
+    unit: "inch",
+    unit_cost: 0.5,
+    total_cost: 6,
+  }
 ]
 */
 ```
@@ -187,12 +189,16 @@ bom
 Returns a promise resolving to the total material cost of the bill of materials. This function depends requires that a `unitCost` property is available in each BOM item. This function will throw a type error if one or more items do not have a `unitCost` defined.
 
 ```javascript
-bom.costRoll() // Returns {Promise<Number>}
+bom.getTotalCost();
 ```
 
 #### Total Weight `.totalWeight()`
 
+Calculates the total weight of items in bill of materials.
 
+```javascript
+bom.getTotalCost();
+```
 
 #### Export `.export()`
 
@@ -211,16 +217,16 @@ For example, lets assume a bill of materials needs to be constructed against a u
 
 ```json
 [
-	{
-		"pn": "110-RED",
-		"qty": "count",
-		"include": "color === 'red'"
-	},
-	{
-		"pn": "110-YEL",
-		"qty": "count",
-		"include": "color === 'yellow'"
-	}
+  {
+    "pn": "110-RED",
+    "qty": "count",
+    "include": "color === 'red'"
+  },
+  {
+    "pn": "110-YEL",
+    "qty": "count",
+    "include": "color === 'yellow'"
+  }
 ]
 ```
 
